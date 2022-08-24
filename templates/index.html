@@ -1,0 +1,55 @@
+{% extends 'bootstrap/base.html' %}
+
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Image Color Palette Generator{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='script/index.js') }}"></script>
+{{super()}}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+
+            <img src="{{ image }}">
+
+           {% if colors != None %}
+
+            <table class="table table-striped w-auto th-lg">
+                <thead>
+                    <tr>
+                        <th>Color</th>
+                        <th>Color Name</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for index in range(10) %}
+                <tr>
+                    <td><div style="background-color: rgb( {{ colors[index][0] }}, {{ colors[index][1] }},
+                    {{ colors[index][2] }}); width:100px; height:40px"></div></td>
+                    <td>{{ names[index] }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% endif %}
+
+
+            {{ wtf.quick_form(form, novalidate=True) }}
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}
